@@ -14,13 +14,19 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+MealComponent _$MealComponentFromJson(Map<String, dynamic> json) {
+  return _MealComponent.fromJson(json);
+}
+
 /// @nodoc
 mixin _$MealComponent {
   @JsonKey(name: 'mainIngredient')
-  Ingredient get mainIngredient => throw _privateConstructorUsedError;
+  Ingredient? get mainIngredient => throw _privateConstructorUsedError;
   @JsonKey(name: 'supplementaryIngredients')
-  Ingredient get supplementaryIngredients => throw _privateConstructorUsedError;
+  List<Ingredient>? get supplementaryIngredients =>
+      throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $MealComponentCopyWith<MealComponent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -33,12 +39,11 @@ abstract class $MealComponentCopyWith<$Res> {
       _$MealComponentCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'mainIngredient')
-          Ingredient mainIngredient,
+          Ingredient? mainIngredient,
       @JsonKey(name: 'supplementaryIngredients')
-          Ingredient supplementaryIngredients});
+          List<Ingredient>? supplementaryIngredients});
 
-  $IngredientCopyWith<$Res> get mainIngredient;
-  $IngredientCopyWith<$Res> get supplementaryIngredients;
+  $IngredientCopyWith<$Res>? get mainIngredient;
 }
 
 /// @nodoc
@@ -59,25 +64,22 @@ class _$MealComponentCopyWithImpl<$Res>
       mainIngredient: mainIngredient == freezed
           ? _value.mainIngredient
           : mainIngredient // ignore: cast_nullable_to_non_nullable
-              as Ingredient,
+              as Ingredient?,
       supplementaryIngredients: supplementaryIngredients == freezed
           ? _value.supplementaryIngredients
           : supplementaryIngredients // ignore: cast_nullable_to_non_nullable
-              as Ingredient,
+              as List<Ingredient>?,
     ));
   }
 
   @override
-  $IngredientCopyWith<$Res> get mainIngredient {
-    return $IngredientCopyWith<$Res>(_value.mainIngredient, (value) {
-      return _then(_value.copyWith(mainIngredient: value));
-    });
-  }
+  $IngredientCopyWith<$Res>? get mainIngredient {
+    if (_value.mainIngredient == null) {
+      return null;
+    }
 
-  @override
-  $IngredientCopyWith<$Res> get supplementaryIngredients {
-    return $IngredientCopyWith<$Res>(_value.supplementaryIngredients, (value) {
-      return _then(_value.copyWith(supplementaryIngredients: value));
+    return $IngredientCopyWith<$Res>(_value.mainIngredient!, (value) {
+      return _then(_value.copyWith(mainIngredient: value));
     });
   }
 }
@@ -91,14 +93,12 @@ abstract class _$$_MealComponentCopyWith<$Res>
   @override
   $Res call(
       {@JsonKey(name: 'mainIngredient')
-          Ingredient mainIngredient,
+          Ingredient? mainIngredient,
       @JsonKey(name: 'supplementaryIngredients')
-          Ingredient supplementaryIngredients});
+          List<Ingredient>? supplementaryIngredients});
 
   @override
-  $IngredientCopyWith<$Res> get mainIngredient;
-  @override
-  $IngredientCopyWith<$Res> get supplementaryIngredients;
+  $IngredientCopyWith<$Res>? get mainIngredient;
 }
 
 /// @nodoc
@@ -121,30 +121,40 @@ class __$$_MealComponentCopyWithImpl<$Res>
       mainIngredient: mainIngredient == freezed
           ? _value.mainIngredient
           : mainIngredient // ignore: cast_nullable_to_non_nullable
-              as Ingredient,
+              as Ingredient?,
       supplementaryIngredients: supplementaryIngredients == freezed
-          ? _value.supplementaryIngredients
+          ? _value._supplementaryIngredients
           : supplementaryIngredients // ignore: cast_nullable_to_non_nullable
-              as Ingredient,
+              as List<Ingredient>?,
     ));
   }
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_MealComponent implements _MealComponent {
   _$_MealComponent(
       {@JsonKey(name: 'mainIngredient')
-          required this.mainIngredient,
+          this.mainIngredient,
       @JsonKey(name: 'supplementaryIngredients')
-          required this.supplementaryIngredients});
+          final List<Ingredient>? supplementaryIngredients})
+      : _supplementaryIngredients = supplementaryIngredients;
+
+  factory _$_MealComponent.fromJson(Map<String, dynamic> json) =>
+      _$$_MealComponentFromJson(json);
 
   @override
   @JsonKey(name: 'mainIngredient')
-  final Ingredient mainIngredient;
+  final Ingredient? mainIngredient;
+  final List<Ingredient>? _supplementaryIngredients;
   @override
   @JsonKey(name: 'supplementaryIngredients')
-  final Ingredient supplementaryIngredients;
+  List<Ingredient>? get supplementaryIngredients {
+    final value = _supplementaryIngredients;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
@@ -159,35 +169,45 @@ class _$_MealComponent implements _MealComponent {
             const DeepCollectionEquality()
                 .equals(other.mainIngredient, mainIngredient) &&
             const DeepCollectionEquality().equals(
-                other.supplementaryIngredients, supplementaryIngredients));
+                other._supplementaryIngredients, _supplementaryIngredients));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(mainIngredient),
-      const DeepCollectionEquality().hash(supplementaryIngredients));
+      const DeepCollectionEquality().hash(_supplementaryIngredients));
 
   @JsonKey(ignore: true)
   @override
   _$$_MealComponentCopyWith<_$_MealComponent> get copyWith =>
       __$$_MealComponentCopyWithImpl<_$_MealComponent>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_MealComponentToJson(
+      this,
+    );
+  }
 }
 
 abstract class _MealComponent implements MealComponent {
   factory _MealComponent(
-          {@JsonKey(name: 'mainIngredient')
-              required final Ingredient mainIngredient,
-          @JsonKey(name: 'supplementaryIngredients')
-              required final Ingredient supplementaryIngredients}) =
-      _$_MealComponent;
+      {@JsonKey(name: 'mainIngredient')
+          final Ingredient? mainIngredient,
+      @JsonKey(name: 'supplementaryIngredients')
+          final List<Ingredient>? supplementaryIngredients}) = _$_MealComponent;
+
+  factory _MealComponent.fromJson(Map<String, dynamic> json) =
+      _$_MealComponent.fromJson;
 
   @override
   @JsonKey(name: 'mainIngredient')
-  Ingredient get mainIngredient;
+  Ingredient? get mainIngredient;
   @override
   @JsonKey(name: 'supplementaryIngredients')
-  Ingredient get supplementaryIngredients;
+  List<Ingredient>? get supplementaryIngredients;
   @override
   @JsonKey(ignore: true)
   _$$_MealComponentCopyWith<_$_MealComponent> get copyWith =>

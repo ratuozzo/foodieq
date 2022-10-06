@@ -5,18 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "foodieq",
+            "name": "Foodieq: Debug",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "flutterMode": "debug",
         },
         {
-            "name": "foodieq (profile mode)",
+            "name": "Foodieq: Profile",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "foodieq (release mode)",
+            "name": "Foodieq: release",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

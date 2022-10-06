@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Abbreviation _$AbbreviationFromJson(Map<String, dynamic> json) {
+  return _Abbreviation.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Abbreviation {
   @JsonKey(name: 'unit')
@@ -21,6 +25,7 @@ mixin _$Abbreviation {
   @JsonKey(name: 'nutrient')
   String get nutrient => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AbbreviationCopyWith<Abbreviation> get copyWith =>
       throw _privateConstructorUsedError;
@@ -104,11 +109,14 @@ class __$$_AbbreviationCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Abbreviation implements _Abbreviation {
   _$_Abbreviation(
       {@JsonKey(name: 'unit') required this.unit,
       @JsonKey(name: 'nutrient') required this.nutrient});
+
+  factory _$_Abbreviation.fromJson(Map<String, dynamic> json) =>
+      _$$_AbbreviationFromJson(json);
 
   @override
   @JsonKey(name: 'unit')
@@ -131,6 +139,7 @@ class _$_Abbreviation implements _Abbreviation {
             const DeepCollectionEquality().equals(other.nutrient, nutrient));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -141,6 +150,13 @@ class _$_Abbreviation implements _Abbreviation {
   @override
   _$$_AbbreviationCopyWith<_$_Abbreviation> get copyWith =>
       __$$_AbbreviationCopyWithImpl<_$_Abbreviation>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_AbbreviationToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Abbreviation implements Abbreviation {
@@ -148,6 +164,9 @@ abstract class _Abbreviation implements Abbreviation {
           {@JsonKey(name: 'unit') required final String unit,
           @JsonKey(name: 'nutrient') required final String nutrient}) =
       _$_Abbreviation;
+
+  factory _Abbreviation.fromJson(Map<String, dynamic> json) =
+      _$_Abbreviation.fromJson;
 
   @override
   @JsonKey(name: 'unit')

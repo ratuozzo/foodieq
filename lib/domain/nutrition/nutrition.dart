@@ -1,15 +1,18 @@
-import 'package:foodieq/domain/abbreviation/abbreviation.dart';
+import 'package:foodieq/domain/nutrition_detail/nutrition_detail.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'nutrition.freezed.dart';
+part 'nutrition.g.dart';
 
 @freezed
 class Nutrition with _$Nutrition {
   factory Nutrition({
-    @JsonKey(name: 'name') required String name,
-    @JsonKey(name: 'unit') required String unit,
-    @JsonKey(name: 'value') required int value,
-    @JsonKey(name: 'valueWithPrecision') required double valueWithPrecision,
-    @JsonKey(name: 'abbreviation') required Abbreviation abbreviation,
+    @JsonKey(name: 'carbohydrates') required NutritionDetail carbohydrates,
+    @JsonKey(name: 'fatTotal') required NutritionDetail fatTotal,
+    @JsonKey(name: 'protein') required NutritionDetail protein,
+    @JsonKey(name: 'energy') required NutritionDetail energy,
   }) = _Nutrition;
+
+  factory Nutrition.fromJson(Map<String, dynamic> json) =>
+      _$NutritionFromJson(json);
 }

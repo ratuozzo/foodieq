@@ -14,10 +14,15 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Meal _$MealFromJson(Map<String, dynamic> json) {
+  return _Meal.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Meal {
   @JsonKey(name: 'id')
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  @DatetimeJsonConverter()
   @JsonKey(name: 'created')
   DateTime get created => throw _privateConstructorUsedError;
   @JsonKey(name: 'image')
@@ -27,6 +32,7 @@ mixin _$Meal {
   @JsonKey(name: 'mealComponents')
   List<MealComponent> get mealComponents => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $MealCopyWith<Meal> get copyWith => throw _privateConstructorUsedError;
 }
@@ -36,8 +42,8 @@ abstract class $MealCopyWith<$Res> {
   factory $MealCopyWith(Meal value, $Res Function(Meal) then) =
       _$MealCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'id') int id,
-      @JsonKey(name: 'created') DateTime created,
+      {@JsonKey(name: 'id') String id,
+      @DatetimeJsonConverter() @JsonKey(name: 'created') DateTime created,
       @JsonKey(name: 'image') String imageUrl,
       @JsonKey(name: 'nutrition') Nutrition nutrition,
       @JsonKey(name: 'mealComponents') List<MealComponent> mealComponents});
@@ -65,7 +71,7 @@ class _$MealCopyWithImpl<$Res> implements $MealCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       created: created == freezed
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
@@ -99,8 +105,8 @@ abstract class _$$_MealCopyWith<$Res> implements $MealCopyWith<$Res> {
       __$$_MealCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'id') int id,
-      @JsonKey(name: 'created') DateTime created,
+      {@JsonKey(name: 'id') String id,
+      @DatetimeJsonConverter() @JsonKey(name: 'created') DateTime created,
       @JsonKey(name: 'image') String imageUrl,
       @JsonKey(name: 'nutrition') Nutrition nutrition,
       @JsonKey(name: 'mealComponents') List<MealComponent> mealComponents});
@@ -130,7 +136,7 @@ class __$$_MealCopyWithImpl<$Res> extends _$MealCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       created: created == freezed
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
@@ -152,11 +158,12 @@ class __$$_MealCopyWithImpl<$Res> extends _$MealCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Meal implements _Meal {
   _$_Meal(
       {@JsonKey(name: 'id')
           required this.id,
+      @DatetimeJsonConverter()
       @JsonKey(name: 'created')
           required this.created,
       @JsonKey(name: 'image')
@@ -167,10 +174,13 @@ class _$_Meal implements _Meal {
           required final List<MealComponent> mealComponents})
       : _mealComponents = mealComponents;
 
+  factory _$_Meal.fromJson(Map<String, dynamic> json) => _$$_MealFromJson(json);
+
   @override
   @JsonKey(name: 'id')
-  final int id;
+  final String id;
   @override
+  @DatetimeJsonConverter()
   @JsonKey(name: 'created')
   final DateTime created;
   @override
@@ -205,6 +215,7 @@ class _$_Meal implements _Meal {
                 .equals(other._mealComponents, _mealComponents));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -218,12 +229,20 @@ class _$_Meal implements _Meal {
   @override
   _$$_MealCopyWith<_$_Meal> get copyWith =>
       __$$_MealCopyWithImpl<_$_Meal>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_MealToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Meal implements Meal {
   factory _Meal(
       {@JsonKey(name: 'id')
-          required final int id,
+          required final String id,
+      @DatetimeJsonConverter()
       @JsonKey(name: 'created')
           required final DateTime created,
       @JsonKey(name: 'image')
@@ -233,10 +252,13 @@ abstract class _Meal implements Meal {
       @JsonKey(name: 'mealComponents')
           required final List<MealComponent> mealComponents}) = _$_Meal;
 
+  factory _Meal.fromJson(Map<String, dynamic> json) = _$_Meal.fromJson;
+
   @override
   @JsonKey(name: 'id')
-  int get id;
+  String get id;
   @override
+  @DatetimeJsonConverter()
   @JsonKey(name: 'created')
   DateTime get created;
   @override

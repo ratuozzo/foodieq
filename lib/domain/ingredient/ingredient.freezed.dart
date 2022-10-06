@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Ingredient _$IngredientFromJson(Map<String, dynamic> json) {
+  return _Ingredient.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Ingredient {
   @JsonKey(name: 'name')
@@ -21,6 +25,7 @@ mixin _$Ingredient {
   @JsonKey(name: 'nutrition')
   Nutrition get nutrition => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $IngredientCopyWith<Ingredient> get copyWith =>
       throw _privateConstructorUsedError;
@@ -115,11 +120,14 @@ class __$$_IngredientCopyWithImpl<$Res> extends _$IngredientCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Ingredient implements _Ingredient {
   _$_Ingredient(
       {@JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'nutrition') required this.nutrition});
+
+  factory _$_Ingredient.fromJson(Map<String, dynamic> json) =>
+      _$$_IngredientFromJson(json);
 
   @override
   @JsonKey(name: 'name')
@@ -142,6 +150,7 @@ class _$_Ingredient implements _Ingredient {
             const DeepCollectionEquality().equals(other.nutrition, nutrition));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -152,6 +161,13 @@ class _$_Ingredient implements _Ingredient {
   @override
   _$$_IngredientCopyWith<_$_Ingredient> get copyWith =>
       __$$_IngredientCopyWithImpl<_$_Ingredient>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_IngredientToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Ingredient implements Ingredient {
@@ -159,6 +175,9 @@ abstract class _Ingredient implements Ingredient {
           {@JsonKey(name: 'name') required final String name,
           @JsonKey(name: 'nutrition') required final Nutrition nutrition}) =
       _$_Ingredient;
+
+  factory _Ingredient.fromJson(Map<String, dynamic> json) =
+      _$_Ingredient.fromJson;
 
   @override
   @JsonKey(name: 'name')
