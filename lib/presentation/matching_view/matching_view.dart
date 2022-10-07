@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieq/application/meals/meals_cubit.dart';
 import 'package:foodieq/injection/injector_container.dart';
+import 'package:foodieq/presentation/components/foodieq_appbar.dart';
 import 'package:foodieq/presentation/matching_view/components/meal_card.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MatchingView extends StatelessWidget {
   const MatchingView({Key? key}) : super(key: key);
@@ -10,26 +12,52 @@ class MatchingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF9586C8),
-      ),
+      appBar: const FoodieqAppbar(),
       body: BlocProvider<MealsCubit>(
         create: (context) => getIt<MealsCubit>()..getMeals(),
         child: BlocBuilder<MealsCubit, MealsState>(
           builder: (context, state) {
             if (state.status == MealsStatus.fail) {
-              return const Text('Oops! an error occurred :)');
+              return const Center(child: Text('Oops! an error occurred :)'));
             }
             if (state.status == MealsStatus.loading) {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
             if (state.meals.isEmpty) {
-              return const Text('No meals for you, diet time!');
+              return const Center(child: Text('No meals for you, diet time!'));
             }
-            return Center(
-              child: MealCard(
-                meal: state.meals[0],
-              ),
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  children: state.meals
+                      .map(
+                        (meal) => SizedBox(
+                          height: 100.h - kToolbarHeight * 1.85,
+                          width: 100.w,
+                          child: MealCard(
+                            meal: meal,
+                            isFirst: state.meals.first == meal,
+                          ),
+                          /* child: OpenContainer(
+                            transitionType: ContainerTransitionType.fade,
+                            transitionDuration:
+                                const Duration(milliseconds: 200),
+                            closedBuilder: (context, action) => MealCard(
+                              meal: meal,
+                              isFirst: state.meals.first == meal,
+                            ),
+                            openBuilder: (context, action) => MealDetails(
+                              meal: meal,
+                            ),
+                            openElevation: 0,
+                            closedElevation: 0,
+                          ), */
+                        ),
+                      )
+                      .toList(),
+                ),
+              ],
             );
           },
         ),

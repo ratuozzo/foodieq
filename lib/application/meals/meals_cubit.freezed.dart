@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MealsState {
   MealsStatus get status => throw _privateConstructorUsedError;
   List<Meal> get meals => throw _privateConstructorUsedError;
+  List<Meal> get likedMeals => throw _privateConstructorUsedError;
+  List<Meal> get dislikedMeals => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MealsStateCopyWith<MealsState> get copyWith =>
@@ -29,7 +31,11 @@ abstract class $MealsStateCopyWith<$Res> {
   factory $MealsStateCopyWith(
           MealsState value, $Res Function(MealsState) then) =
       _$MealsStateCopyWithImpl<$Res>;
-  $Res call({MealsStatus status, List<Meal> meals});
+  $Res call(
+      {MealsStatus status,
+      List<Meal> meals,
+      List<Meal> likedMeals,
+      List<Meal> dislikedMeals});
 }
 
 /// @nodoc
@@ -44,6 +50,8 @@ class _$MealsStateCopyWithImpl<$Res> implements $MealsStateCopyWith<$Res> {
   $Res call({
     Object? status = freezed,
     Object? meals = freezed,
+    Object? likedMeals = freezed,
+    Object? dislikedMeals = freezed,
   }) {
     return _then(_value.copyWith(
       status: status == freezed
@@ -53,6 +61,14 @@ class _$MealsStateCopyWithImpl<$Res> implements $MealsStateCopyWith<$Res> {
       meals: meals == freezed
           ? _value.meals
           : meals // ignore: cast_nullable_to_non_nullable
+              as List<Meal>,
+      likedMeals: likedMeals == freezed
+          ? _value.likedMeals
+          : likedMeals // ignore: cast_nullable_to_non_nullable
+              as List<Meal>,
+      dislikedMeals: dislikedMeals == freezed
+          ? _value.dislikedMeals
+          : dislikedMeals // ignore: cast_nullable_to_non_nullable
               as List<Meal>,
     ));
   }
@@ -65,7 +81,11 @@ abstract class _$$_MealsStateCopyWith<$Res>
           _$_MealsState value, $Res Function(_$_MealsState) then) =
       __$$_MealsStateCopyWithImpl<$Res>;
   @override
-  $Res call({MealsStatus status, List<Meal> meals});
+  $Res call(
+      {MealsStatus status,
+      List<Meal> meals,
+      List<Meal> likedMeals,
+      List<Meal> dislikedMeals});
 }
 
 /// @nodoc
@@ -82,6 +102,8 @@ class __$$_MealsStateCopyWithImpl<$Res> extends _$MealsStateCopyWithImpl<$Res>
   $Res call({
     Object? status = freezed,
     Object? meals = freezed,
+    Object? likedMeals = freezed,
+    Object? dislikedMeals = freezed,
   }) {
     return _then(_$_MealsState(
       status: status == freezed
@@ -92,6 +114,14 @@ class __$$_MealsStateCopyWithImpl<$Res> extends _$MealsStateCopyWithImpl<$Res>
           ? _value._meals
           : meals // ignore: cast_nullable_to_non_nullable
               as List<Meal>,
+      likedMeals: likedMeals == freezed
+          ? _value._likedMeals
+          : likedMeals // ignore: cast_nullable_to_non_nullable
+              as List<Meal>,
+      dislikedMeals: dislikedMeals == freezed
+          ? _value._dislikedMeals
+          : dislikedMeals // ignore: cast_nullable_to_non_nullable
+              as List<Meal>,
     ));
   }
 }
@@ -100,8 +130,13 @@ class __$$_MealsStateCopyWithImpl<$Res> extends _$MealsStateCopyWithImpl<$Res>
 
 class _$_MealsState implements _MealsState {
   const _$_MealsState(
-      {this.status = MealsStatus.initial, final List<Meal> meals = const []})
-      : _meals = meals;
+      {this.status = MealsStatus.initial,
+      final List<Meal> meals = const [],
+      final List<Meal> likedMeals = const [],
+      final List<Meal> dislikedMeals = const []})
+      : _meals = meals,
+        _likedMeals = likedMeals,
+        _dislikedMeals = dislikedMeals;
 
   @override
   @JsonKey()
@@ -114,9 +149,25 @@ class _$_MealsState implements _MealsState {
     return EqualUnmodifiableListView(_meals);
   }
 
+  final List<Meal> _likedMeals;
+  @override
+  @JsonKey()
+  List<Meal> get likedMeals {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_likedMeals);
+  }
+
+  final List<Meal> _dislikedMeals;
+  @override
+  @JsonKey()
+  List<Meal> get dislikedMeals {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_dislikedMeals);
+  }
+
   @override
   String toString() {
-    return 'MealsState(status: $status, meals: $meals)';
+    return 'MealsState(status: $status, meals: $meals, likedMeals: $likedMeals, dislikedMeals: $dislikedMeals)';
   }
 
   @override
@@ -125,14 +176,20 @@ class _$_MealsState implements _MealsState {
         (other.runtimeType == runtimeType &&
             other is _$_MealsState &&
             const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality().equals(other._meals, _meals));
+            const DeepCollectionEquality().equals(other._meals, _meals) &&
+            const DeepCollectionEquality()
+                .equals(other._likedMeals, _likedMeals) &&
+            const DeepCollectionEquality()
+                .equals(other._dislikedMeals, _dislikedMeals));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(_meals));
+      const DeepCollectionEquality().hash(_meals),
+      const DeepCollectionEquality().hash(_likedMeals),
+      const DeepCollectionEquality().hash(_dislikedMeals));
 
   @JsonKey(ignore: true)
   @override
@@ -142,12 +199,19 @@ class _$_MealsState implements _MealsState {
 
 abstract class _MealsState implements MealsState {
   const factory _MealsState(
-      {final MealsStatus status, final List<Meal> meals}) = _$_MealsState;
+      {final MealsStatus status,
+      final List<Meal> meals,
+      final List<Meal> likedMeals,
+      final List<Meal> dislikedMeals}) = _$_MealsState;
 
   @override
   MealsStatus get status;
   @override
   List<Meal> get meals;
+  @override
+  List<Meal> get likedMeals;
+  @override
+  List<Meal> get dislikedMeals;
   @override
   @JsonKey(ignore: true)
   _$$_MealsStateCopyWith<_$_MealsState> get copyWith =>

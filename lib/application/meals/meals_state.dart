@@ -12,5 +12,7 @@ class MealsState with _$MealsState {
   const factory MealsState({
     @Default(MealsStatus.initial) MealsStatus status,
     @Default([]) List<Meal> meals,
+    @Default([]) List<Meal> likedMeals,
+    @Default([]) List<Meal> dislikedMeals,
   }) = _MealsState;
 }

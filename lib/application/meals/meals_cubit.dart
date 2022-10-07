@@ -30,4 +30,22 @@ class MealsCubit extends Cubit<MealsState> {
       ),
     );
   }
+
+  void likeMeal(Meal meal) {
+    emit(
+      state.copyWith(
+        meals: state.meals.where((item) => item.id != meal.id).toList(),
+        likedMeals: state.likedMeals.toList()..add(meal),
+      ),
+    );
+  }
+
+  void dislikeMeal(Meal meal) {
+    emit(
+      state.copyWith(
+        meals: state.meals.where((item) => item.id != meal.id).toList(),
+        dislikedMeals: state.dislikedMeals.toList()..add(meal),
+      ),
+    );
+  }
 }

@@ -11,7 +11,12 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, screenType) => MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          pageTransitionsTheme: PageTransitionsTheme(
+            builders: Map<TargetPlatform, PageTransitionsBuilder>.fromIterable(
+              TargetPlatform.values,
+              value: (dynamic _) => const FadeUpwardsPageTransitionsBuilder(),
+            ),
+          ),
         ),
         home: const MatchingView(),
       ),
