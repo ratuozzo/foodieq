@@ -24,3 +24,16 @@ List<Ingredient> getSupplementaryIngredients(Meal meal) {
   }
   return output;
 }
+
+List<Ingredient> getAllMainIngredients(List<Meal> meals) {
+  List<Ingredient> output = [];
+  for (Meal meal in meals) {
+    for (MealComponent mealComponent in meal.mealComponents) {
+      if (mealComponent.mainIngredient != null &&
+          !output.contains(mealComponent.mainIngredient)) {
+        output.add(mealComponent.mainIngredient!);
+      }
+    }
+  }
+  return output;
+}

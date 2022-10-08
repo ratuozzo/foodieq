@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodieq/presentation/my_meals/my_meals_view.dart';
+import 'package:foodieq/presentation/profile/profile_view.dart';
 
 class FoodieqAppbar extends StatelessWidget implements PreferredSizeWidget {
   const FoodieqAppbar({
@@ -18,6 +19,11 @@ class FoodieqAppbar extends StatelessWidget implements PreferredSizeWidget {
               PopupMenuButton(
                 onSelected: (value) {
                   if (value == 0) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const ProfileView(),
+                      ),
+                    );
                   } else {
                     Navigator.of(context).push(
                       MaterialPageRoute(

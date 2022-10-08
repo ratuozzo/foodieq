@@ -10,7 +10,7 @@ class DislikedMeals extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
+    return BlocProvider<MealsCubit>.value(
       value: getIt<MealsCubit>(),
       child: BlocBuilder<MealsCubit, MealsState>(
         builder: (context, state) {

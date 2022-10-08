@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieq/application/meals/meals_cubit.dart';
+import 'package:foodieq/domain/meal/meal.dart';
 import 'package:foodieq/injection/injector_container.dart';
 import 'package:foodieq/presentation/components/foodieq_appbar.dart';
 import 'package:foodieq/presentation/matching_view/components/meal_card.dart';
@@ -26,7 +27,8 @@ class MatchingView extends StatelessWidget {
             if (state.status == MealsStatus.loading) {
               return const Center(child: CircularProgressIndicator());
             }
-            if (state.meals.isEmpty) {
+            List<Meal> meals = context.read<MealsCubit>().getFilteredMeals();
+            if (meals.isEmpty) {
               return Center(
                 child: Column(
                   children: [
@@ -48,7 +50,8 @@ class MatchingView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Stack(
-                  children: state.meals
+                  key: Key(meals.toString()),
+                  children: meals
                       .map(
                         (meal) => SizedBox(
                           height: 100.h - kToolbarHeight * 1.85,
