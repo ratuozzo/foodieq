@@ -39,20 +39,6 @@ class MatchingView extends StatelessWidget {
                             meal: meal,
                             isFirst: state.meals.first == meal,
                           ),
-                          /* child: OpenContainer(
-                            transitionType: ContainerTransitionType.fade,
-                            transitionDuration:
-                                const Duration(milliseconds: 200),
-                            closedBuilder: (context, action) => MealCard(
-                              meal: meal,
-                              isFirst: state.meals.first == meal,
-                            ),
-                            openBuilder: (context, action) => MealDetails(
-                              meal: meal,
-                            ),
-                            openElevation: 0,
-                            closedElevation: 0,
-                          ), */
                         ),
                       )
                       .toList(),
