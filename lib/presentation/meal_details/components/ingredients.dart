@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodieq/domain/ingredient/ingredient.dart';
-import 'package:foodieq/presentation/meal_details/components/nutrition_item.dart';
+import 'package:foodieq/domain/meal/meal.dart';
+import 'package:foodieq/presentation/components/nutrition_detail_row.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Ingredients extends StatefulWidget {
@@ -8,10 +9,12 @@ class Ingredients extends StatefulWidget {
     Key? key,
     required this.title,
     required this.ingredients,
+    required this.meal,
   }) : super(key: key);
 
   final String title;
   final List<Ingredient> ingredients;
+  final Meal meal;
 
   @override
   State<Ingredients> createState() => _IngredientsState();
@@ -68,30 +71,14 @@ class _IngredientsState extends State<Ingredients> {
                           const SizedBox(height: 5),
                           SizedBox(
                             width: 100.w - 30,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                NutritionItem(
-                                  nutritionDetail:
-                                      ingredient.nutrition.carbohydrates,
-                                  circleColor: Colors.blue,
-                                ),
-                                NutritionItem(
-                                  nutritionDetail:
-                                      ingredient.nutrition.fatTotal,
-                                  circleColor: Colors.orange,
-                                ),
-                                NutritionItem(
-                                  nutritionDetail: ingredient.nutrition.protein,
-                                  circleColor: Colors.red,
-                                ),
-                                NutritionItem(
-                                  nutritionDetail: ingredient.nutrition.energy,
-                                  showUnit: false,
-                                  circleColor: const Color(0xFFC0E246),
-                                ),
-                              ],
+                            child: NutritionDetailRow(
+                              nutrition: ingredient.nutrition,
+                              totalCarbohydrates:
+                                  widget.meal.nutrition.carbohydrates.value,
+                              totalFat: widget.meal.nutrition.fatTotal.value,
+                              totalProtetin:
+                                  widget.meal.nutrition.protein.value,
+                              totalEnergy: widget.meal.nutrition.energy.value,
                             ),
                           ),
                           const SizedBox(height: 5),

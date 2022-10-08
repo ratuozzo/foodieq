@@ -6,19 +6,20 @@ import 'package:foodieq/presentation/components/calories_item.dart';
 import 'package:foodieq/presentation/components/foodieq_appbar.dart';
 import 'package:foodieq/presentation/components/matching_button.dart';
 import 'package:foodieq/presentation/meal_details/components/ingredients.dart';
+import 'package:foodieq/presentation/meal_details/components/total_nutrition.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MealDetails extends StatelessWidget {
   const MealDetails({
     Key? key,
     required this.meal,
-    required this.likeMeal,
-    required this.dislikeMeal,
+    this.likeMeal,
+    this.dislikeMeal,
   }) : super(key: key);
 
   final Meal meal;
-  final void Function(Meal meal) likeMeal;
-  final void Function(Meal meal) dislikeMeal;
+  final void Function(Meal meal)? likeMeal;
+  final void Function(Meal meal)? dislikeMeal;
 
   @override
   Widget build(BuildContext context) {
@@ -50,16 +51,23 @@ class MealDetails extends StatelessWidget {
               children: [
                 CaloriesItem(meal: meal),
                 const SizedBox(height: 15),
+                TotalNutrition(
+                  title: 'Total Nutrition',
+                  nutrition: meal.nutrition,
+                ),
+                const SizedBox(height: 15),
                 if (getMainIngredients(meal).isNotEmpty)
                   Ingredients(
                     title: 'Ingredients',
                     ingredients: getMainIngredients(meal),
+                    meal: meal,
                   ),
                 const SizedBox(height: 15),
                 if (getSupplementaryIngredients(meal).isNotEmpty)
                   Ingredients(
                     title: 'Supplementary Ingredients',
                     ingredients: getSupplementaryIngredients(meal),
+                    meal: meal,
                   ),
               ],
             ),
@@ -68,27 +76,29 @@ class MealDetails extends StatelessWidget {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          MatchingButton(
-            onTap: () {
-              dislikeMeal(meal);
-              Navigator.of(context).pop();
-            },
-            iconData: Icons.close,
-            color: Colors.red,
-          ),
-          MatchingButton(
-            onTap: () {
-              likeMeal(meal);
-              Navigator.of(context).pop();
-            },
-            iconData: Icons.check,
-            color: Colors.green,
-          ),
-        ],
-      ),
+      floatingActionButton: (dislikeMeal != null && likeMeal != null)
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                MatchingButton(
+                  onTap: () {
+                    dislikeMeal!(meal);
+                    Navigator.of(context).pop();
+                  },
+                  iconData: Icons.close,
+                  color: Colors.red,
+                ),
+                MatchingButton(
+                  onTap: () {
+                    likeMeal!(meal);
+                    Navigator.of(context).pop();
+                  },
+                  iconData: Icons.check,
+                  color: Colors.green,
+                ),
+              ],
+            )
+          : null,
     );
   }
 }

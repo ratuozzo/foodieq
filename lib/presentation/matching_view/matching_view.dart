@@ -4,6 +4,7 @@ import 'package:foodieq/application/meals/meals_cubit.dart';
 import 'package:foodieq/injection/injector_container.dart';
 import 'package:foodieq/presentation/components/foodieq_appbar.dart';
 import 'package:foodieq/presentation/matching_view/components/meal_card.dart';
+import 'package:foodieq/presentation/my_meals/my_meals_view.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MatchingView extends StatelessWidget {
@@ -12,7 +13,9 @@ class MatchingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const FoodieqAppbar(),
+      appBar: const FoodieqAppbar(
+        showActions: true,
+      ),
       body: BlocProvider<MealsCubit>(
         create: (context) => getIt<MealsCubit>()..getMeals(),
         child: BlocBuilder<MealsCubit, MealsState>(
@@ -24,7 +27,22 @@ class MatchingView extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
             if (state.meals.isEmpty) {
-              return const Center(child: Text('No meals for you, diet time!'));
+              return Center(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 200),
+                    const Text('No more meals for you, diet time!'),
+                    ElevatedButton(
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const MyMealsView(),
+                        ),
+                      ),
+                      child: const Text('My Meals'),
+                    ),
+                  ],
+                ),
+              );
             }
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,

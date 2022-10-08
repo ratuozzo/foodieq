@@ -7,7 +7,7 @@ final _getIt = GetIt.instance;
 
 void mealInjector() {
   //! Application
-  _getIt.registerFactory<MealsCubit>(
+  _getIt.registerLazySingleton<MealsCubit>(
     () => MealsCubit(
       repository: _getIt(),
     ),
