@@ -42,111 +42,102 @@ class _MealCardState extends State<MealCard> {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        minHeight: 80.h,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: GestureDetector(
-          onPanStart: (_) => dragStart(),
-          onPanUpdate: (details) => dragUpdate(details),
-          onPanEnd: (_) => dragEnd(),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              int milliseconds = isDragging ? 0 : 400;
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AnimatedContainer(
-                    curve: Curves.easeInOut,
-                    duration: Duration(
-                      milliseconds: milliseconds,
+    return GestureDetector(
+      onPanStart: (_) => dragStart(),
+      onPanUpdate: (details) => dragUpdate(details),
+      onPanEnd: (_) => dragEnd(),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          int milliseconds = isDragging ? 0 : 400;
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AnimatedContainer(
+                curve: Curves.easeInOut,
+                duration: Duration(
+                  milliseconds: milliseconds,
+                ),
+                transform: Matrix4.identity()
+                  ..translate(position.dx, position.dy)
+                  ..rotateZ(angle * pi / 180)
+                  ..translate(position.dx, position.dy),
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => MealDetailsView(
+                        meal: widget.meal,
+                        dislikeMeal: (meal) =>
+                            context.read<MealsCubit>().dislikeMeal(meal),
+                        likeMeal: (meal) =>
+                            context.read<MealsCubit>().likeMeal(meal),
+                      ),
                     ),
-                    transform: Matrix4.identity()
-                      ..translate(position.dx, position.dy)
-                      ..rotateZ(angle * pi / 180)
-                      ..translate(position.dx, position.dy),
-                    child: GestureDetector(
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => MealDetailsView(
-                            meal: widget.meal,
-                            dislikeMeal: (meal) =>
-                                context.read<MealsCubit>().dislikeMeal(meal),
-                            likeMeal: (meal) =>
-                                context.read<MealsCubit>().likeMeal(meal),
+                  ),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    elevation: widget.isFirst ? 5 : 0.4,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                          ),
+                          child: SizedBox(
+                            height: Device.height < 800 ? 70.w : 80.w,
+                            width: Device.height < 800 ? 70.w : 80.w,
+                            child: CachedNetworkImage(
+                              imageUrl: widget.meal.imageUrl,
+                              color: dragStatus == DragStatus.neutral
+                                  ? Colors.transparent
+                                  : dragStatus == DragStatus.disliking
+                                      ? Colors.red.withOpacity(0.4)
+                                      : Colors.green.withOpacity(0.4),
+                              colorBlendMode: BlendMode.lighten,
+                              progressIndicatorBuilder:
+                                  (context, url, progress) => Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  CircularProgressIndicator(
+                                    value: progress.progress,
+                                  ),
+                                ],
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
                           ),
                         ),
-                      ),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
+                        const SizedBox(height: 15),
+                        CaloriesItem(meal: widget.meal),
+                        const SizedBox(height: 15),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Text(
+                            'Ingredients',
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
                         ),
-                        elevation: widget.isFirst ? 5 : 0.4,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                              ),
-                              child: SizedBox(
-                                height: 80.w,
-                                width: 80.w,
-                                child: CachedNetworkImage(
-                                  imageUrl: widget.meal.imageUrl,
-                                  color: dragStatus == DragStatus.neutral
-                                      ? Colors.transparent
-                                      : dragStatus == DragStatus.disliking
-                                          ? Colors.red.withOpacity(0.4)
-                                          : Colors.green.withOpacity(0.4),
-                                  colorBlendMode: BlendMode.lighten,
-                                  progressIndicatorBuilder:
-                                      (context, url, progress) => Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      CircularProgressIndicator(
-                                        value: progress.progress,
-                                      ),
-                                    ],
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 15),
-                            CaloriesItem(meal: widget.meal),
-                            const SizedBox(height: 15),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              child: Text(
-                                'Ingredients',
-                                style: Theme.of(context).textTheme.headline5,
-                              ),
-                            ),
-                            CardIngredients(
-                              ingredients: getMainIngredients(),
-                            ),
-                          ],
+                        CardIngredients(
+                          width: Device.height < 800 ? 70.w : 80.w,
+                          ingredients: getMainIngredients(),
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                  MatchingButtons(
-                    meal: widget.meal,
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
+                ),
+              ),
+              MatchingButtons(
+                meal: widget.meal,
+              ),
+            ],
+          );
+        },
       ),
     );
   }

@@ -19,7 +19,11 @@ class MatchingButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding ??
-          EdgeInsets.only(top: 20, left: 15.w, right: 15.w, bottom: 50),
+          EdgeInsets.only(
+            top: 10,
+            left: 15.w,
+            right: 15.w,
+          ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

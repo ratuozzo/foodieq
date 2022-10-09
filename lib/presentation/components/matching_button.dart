@@ -17,12 +17,17 @@ class MatchingButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => onTap(),
       style: ElevatedButton.styleFrom(
+        minimumSize: const Size(20, 20),
         shape: const CircleBorder(),
         padding: const EdgeInsets.all(20),
         backgroundColor: color,
         elevation: 0,
+        alignment: Alignment.center,
       ),
-      child: Icon(iconData, color: Colors.white),
+      child: Icon(
+        iconData,
+        color: Colors.white,
+      ),
     );
   }
 }

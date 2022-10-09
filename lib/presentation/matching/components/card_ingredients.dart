@@ -17,9 +17,10 @@ class CardIngredients extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       width: width ?? 80.w,
-      height: 40.w,
+      height: Device.screenType == ScreenType.tablet ? 10.w : 35.w,
       child: Wrap(
         alignment: WrapAlignment.start,
+        runSpacing: -10,
         children: ingredients
             .map((ingredient) => Transform.scale(
                   scale: 0.9,

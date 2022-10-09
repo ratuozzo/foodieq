@@ -6,7 +6,6 @@ import 'package:foodieq/injection/injector_container.dart';
 import 'package:foodieq/presentation/components/foodieq_appbar.dart';
 import 'package:foodieq/presentation/matching/components/meal_card.dart';
 import 'package:foodieq/presentation/my_meals/my_meals_view.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MatchingView extends StatelessWidget {
   const MatchingView({Key? key}) : super(key: key);
@@ -53,13 +52,9 @@ class MatchingView extends StatelessWidget {
                   key: Key(meals.toString()),
                   children: meals
                       .map(
-                        (meal) => SizedBox(
-                          height: 100.h - kToolbarHeight * 1.85,
-                          width: 100.w,
-                          child: MealCard(
-                            meal: meal,
-                            isFirst: state.meals.first == meal,
-                          ),
+                        (meal) => MealCard(
+                          meal: meal,
+                          isFirst: state.meals.first == meal,
                         ),
                       )
                       .toList(),

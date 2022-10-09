@@ -13,7 +13,7 @@ class FiltersPage extends StatelessWidget {
       builder: (context, state) {
         return Column(
           children: [
-            const SizedBox(height: 100),
+            const SizedBox(height: 50),
             const Text(
               "Tell us if you are alergic to any of these ingredients",
               textAlign: TextAlign.center,
@@ -23,7 +23,7 @@ class FiltersPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const IngredientsFilters(),
-            const SizedBox(height: 50),
+            const SizedBox(height: 15),
             ElevatedButton(
               onPressed: () => Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
