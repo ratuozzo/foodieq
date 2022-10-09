@@ -4,7 +4,7 @@ import 'package:foodieq/application/meals/meals_cubit.dart';
 import 'package:foodieq/domain/meal/meal.dart';
 import 'package:foodieq/injection/injector_container.dart';
 import 'package:foodieq/presentation/components/foodieq_appbar.dart';
-import 'package:foodieq/presentation/matching_view/components/meal_card.dart';
+import 'package:foodieq/presentation/matching/components/meal_card.dart';
 import 'package:foodieq/presentation/my_meals/my_meals_view.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -17,8 +17,8 @@ class MatchingView extends StatelessWidget {
       appBar: const FoodieqAppbar(
         showActions: true,
       ),
-      body: BlocProvider<MealsCubit>(
-        create: (context) => getIt<MealsCubit>()..getMeals(),
+      body: BlocProvider<MealsCubit>.value(
+        value: getIt<MealsCubit>(),
         child: BlocBuilder<MealsCubit, MealsState>(
           builder: (context, state) {
             if (state.status == MealsStatus.fail) {

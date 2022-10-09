@@ -9,8 +9,8 @@ import 'package:foodieq/presentation/meal_details/components/ingredients.dart';
 import 'package:foodieq/presentation/meal_details/components/total_nutrition.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class MealDetails extends StatelessWidget {
-  const MealDetails({
+class MealDetailsView extends StatelessWidget {
+  const MealDetailsView({
     Key? key,
     required this.meal,
     this.likeMeal,

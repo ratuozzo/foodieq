@@ -35,5 +35,6 @@ List<Ingredient> getAllMainIngredients(List<Meal> meals) {
       }
     }
   }
+  output.sort((a, b) => a.name.compareTo(b.name));
   return output;
 }

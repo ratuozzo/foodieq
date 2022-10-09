@@ -73,4 +73,10 @@ class MealsCubit extends Cubit<MealsState> {
             (ingredient) => !state.filteredIngredients.contains(ingredient)))
         .toList();
   }
+
+  @override
+  Future<void> close() {
+    print('closing cubit');
+    return super.close();
+  }
 }

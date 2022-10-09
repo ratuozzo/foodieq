@@ -8,9 +8,9 @@ import 'package:foodieq/domain/ingredient/ingredient.dart';
 import 'package:foodieq/domain/meal/meal.dart';
 import 'package:foodieq/domain/meal_component/meal_component.dart';
 import 'package:foodieq/presentation/components/calories_item.dart';
-import 'package:foodieq/presentation/matching_view/components/matching_buttons.dart';
-import 'package:foodieq/presentation/matching_view/components/card_ingredients.dart';
-import 'package:foodieq/presentation/meal_details/meal_details.dart';
+import 'package:foodieq/presentation/matching/components/matching_buttons.dart';
+import 'package:foodieq/presentation/matching/components/card_ingredients.dart';
+import 'package:foodieq/presentation/meal_details/meal_details_view.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 enum DragStatus {
@@ -70,7 +70,7 @@ class _MealCardState extends State<MealCard> {
                     child: GestureDetector(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => MealDetails(
+                          builder: (_) => MealDetailsView(
                             meal: widget.meal,
                             dislikeMeal: (meal) =>
                                 context.read<MealsCubit>().dislikeMeal(meal),

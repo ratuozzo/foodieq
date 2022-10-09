@@ -4,7 +4,7 @@ import 'package:foodieq/domain/ingredient/ingredient.dart';
 import 'package:foodieq/domain/meal/meal.dart';
 import 'package:foodieq/helpers/ingredients_helper.dart';
 import 'package:foodieq/presentation/components/nutrition_detail_row.dart';
-import 'package:foodieq/presentation/meal_details/meal_details.dart';
+import 'package:foodieq/presentation/meal_details/meal_details_view.dart';
 
 class MealCardTile extends StatelessWidget {
   const MealCardTile({
@@ -21,7 +21,7 @@ class MealCardTile extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => MealDetails(
+          builder: (_) => MealDetailsView(
             meal: meal,
           ),
         ),
